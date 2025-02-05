@@ -1,5 +1,5 @@
-#ifndef _MCP2515_H_
-#define _MCP2515_H_
+#ifndef _HD_MCP2515_H_
+#define _HD_MCP2515_H_
 
 #include <SPI.h>
 #include "can.h"

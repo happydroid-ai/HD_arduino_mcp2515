@@ -1,6 +1,5 @@
 Arduino MCP2515 CAN interface library
 ---------------------------------------------------------
-[![Build Status](https://travis-ci.org/autowp/arduino-mcp2515.svg?branch=master)](https://travis-ci.org/autowp/arduino-mcp2515)
 
 <br>
 CAN-BUS is a common industrial bus because of its long travel distance, medium communication speed and high reliability. It is commonly found on modern machine tools and as an automotive diagnostic bus. This CAN-BUS Shield gives your Arduino/Seeeduino CAN-BUS capability. With an OBD-II converter cable added on and the OBD-II library imported, you are ready to build an onboard diagnostic device or data logger.
@@ -9,6 +8,10 @@ CAN-BUS is a common industrial bus because of its long travel distance, medium c
 - SPI Interface up to 10 MHz
 - Standard (11 bit) and extended (29 bit) data and remote frames
 - Two receive buffers with prioritized message storage
+
+>**[NOTE]** - This is a fork of [autowp's MCP2515 library](https://github.com/autowp/arduino-mcp2515) so we can add so we can alter some functionality, mainly:
+> - Make read/write registers public for diagnostics
+> - Add public function to enable One-shot mode
 
 **Contents:**
 * [Hardware](#hardware)
