@@ -198,6 +198,27 @@ MCP2515::ERROR MCP2515::setMode(const CANCTRL_REQOP_MODE mode)
 
 }
 
+MCP2515::ERROR MCP2515::setOneShot()
+{
+    modifyRegister(MCP_CANCTRL, CANCTRL_OSM, CANCTRL_OSM);
+
+    unsigned long endTime = millis() + 10;
+    bool oneShotEnabled = false;
+    while (millis() < endTime) {
+        uint8_t osm_bit = readRegister(MCP_CANCTRL);
+        osm_bit &= CANCTRL_OSM;
+
+        oneShotEnabled = (osm_bit == CANCTRL_OSM);
+
+        if (oneShotEnabled) {
+            break;
+        }
+    }
+
+    return oneShotEnabled ? ERROR_OK : ERROR_FAIL;
+
+}
+
 MCP2515::ERROR MCP2515::setBitrate(const CAN_SPEED canSpeed)
 {
     return setBitrate(canSpeed, MCP_16MHZ);

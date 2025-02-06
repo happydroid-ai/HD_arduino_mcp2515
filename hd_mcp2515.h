@@ -457,33 +457,40 @@ class MCP2515
 
         ERROR setMode(const CANCTRL_REQOP_MODE mode);
 
-        uint8_t readRegister(const REGISTER reg);
-        void readRegisters(const REGISTER reg, uint8_t values[], const uint8_t n);
-        void setRegister(const REGISTER reg, const uint8_t value);
-        void setRegisters(const REGISTER reg, const uint8_t values[], const uint8_t n);
-        void modifyRegister(const REGISTER reg, const uint8_t mask, const uint8_t data);
 
         void prepareId(uint8_t *buffer, const bool ext, const uint32_t id);
     
     public:
         MCP2515(const uint8_t _CS, const uint32_t _SPI_CLOCK = DEFAULT_SPI_CLOCK, SPIClass * _SPI = nullptr);
+        
         ERROR reset(void);
         ERROR setConfigMode();
         ERROR setListenOnlyMode();
         ERROR setSleepMode();
         ERROR setLoopbackMode();
         ERROR setNormalMode();
+        ERROR setOneShot();
+
         ERROR setClkOut(const CAN_CLKOUT divisor);
         ERROR setBitrate(const CAN_SPEED canSpeed);
         ERROR setBitrate(const CAN_SPEED canSpeed, const CAN_CLOCK canClock);
         ERROR setFilterMask(const MASK num, const bool ext, const uint32_t ulData);
         ERROR setFilter(const RXF num, const bool ext, const uint32_t ulData);
+        
         ERROR sendMessage(const TXBn txbn, const struct can_frame *frame);
         ERROR sendMessage(const struct can_frame *frame);
         ERROR readMessage(const RXBn rxbn, struct can_frame *frame);
         ERROR readMessage(struct can_frame *frame);
         bool checkReceive(void);
         bool checkError(void);
+        
+        // TODO: Register modification temporarily public while we do some debug, return to private once we've finalized any getter/setters
+        uint8_t readRegister(const REGISTER reg);
+        void readRegisters(const REGISTER reg, uint8_t values[], const uint8_t n);
+        void setRegister(const REGISTER reg, const uint8_t value);
+        void setRegisters(const REGISTER reg, const uint8_t values[], const uint8_t n);
+        void modifyRegister(const REGISTER reg, const uint8_t mask, const uint8_t data);
+
         uint8_t getErrorFlags(void);
         void clearRXnOVRFlags(void);
         uint8_t getInterrupts(void);
